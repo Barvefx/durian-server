@@ -22,6 +22,6 @@ public class DurianApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DurianApplication.class, args);
-        System.out.println("ヾ(◍°∇°◍)ﾉﾞ    bootdo启动成功      ヾ(◍°∇°◍)ﾉﾞ\n" );
+        System.out.println("ヾ(◍°∇°◍)ﾉﾞ    bootspring启动成功      ヾ(◍°∇°◍)ﾉﾞ\n" );
     }
 }
