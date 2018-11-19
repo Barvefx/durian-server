@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.durian.app.dao.AppUserDao">
+
+	<select id="get" resultType="com.durian.app.dao.AppUserDao">
+		select `id`,`phone`,`password`,`openid`,`city`,`headimg`,`nick`,`bindwx`,`type`,`isdelete`,`balance`,`referee`,`createdate` from t_user where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.durian.app.dao.AppUserDao">
+		select `id`,`phone`,`password`,`openid`,`city`,`headimg`,`nick`,`bindwx`,`type`,`isdelete`,`balance`,`referee`,`createdate` from t_user
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="openid != null and openid != ''"> and openid = #{openid} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="headimg != null and headimg != ''"> and headimg = #{headimg} </if>
+		  		  <if test="nick != null and nick != ''"> and nick = #{nick} </if>
+		  		  <if test="bindwx != null and bindwx != ''"> and bindwx = #{bindwx} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="isdelete != null and isdelete != ''"> and isdelete = #{isdelete} </if>
+		  		  <if test="balance != null and balance != ''"> and balance = #{balance} </if>
+		  		  <if test="referee != null and referee != ''"> and referee = #{referee} </if>
+		  		  <if test="createdate != null and createdate != ''"> and createdate = #{createdate} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_user
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="openid != null and openid != ''"> and openid = #{openid} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="headimg != null and headimg != ''"> and headimg = #{headimg} </if>
+		  		  <if test="nick != null and nick != ''"> and nick = #{nick} </if>
+		  		  <if test="bindwx != null and bindwx != ''"> and bindwx = #{bindwx} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="isdelete != null and isdelete != ''"> and isdelete = #{isdelete} </if>
+		  		  <if test="balance != null and balance != ''"> and balance = #{balance} </if>
+		  		  <if test="referee != null and referee != ''"> and referee = #{referee} </if>
+		  		  <if test="createdate != null and createdate != ''"> and createdate = #{createdate} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.durian.app.dao.AppUserDao">
+		insert into t_user
+		(
+			`id`, 
+			`phone`, 
+			`password`, 
+			`openid`, 
+			`city`, 
+			`headimg`, 
+			`nick`, 
+			`bindwx`, 
+			`type`, 
+			`isdelete`, 
+			`balance`, 
+			`referee`, 
+			`createdate`
+		)
+		values
+		(
+			#{id}, 
+			#{phone}, 
+			#{password}, 
+			#{openid}, 
+			#{city}, 
+			#{headimg}, 
+			#{nick}, 
+			#{bindwx}, 
+			#{type}, 
+			#{isdelete}, 
+			#{balance}, 
+			#{referee}, 
+			#{createdate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.durian.app.dao.AppUserDao">
+		update t_user 
+		<set>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="openid != null">`openid` = #{openid}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="headimg != null">`headimg` = #{headimg}, </if>
+			<if test="nick != null">`nick` = #{nick}, </if>
+			<if test="bindwx != null">`bindwx` = #{bindwx}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="isdelete != null">`isdelete` = #{isdelete}, </if>
+			<if test="balance != null">`balance` = #{balance}, </if>
+			<if test="referee != null">`referee` = #{referee}, </if>
+			<if test="createdate != null">`createdate` = #{createdate}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_user where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from t_user where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
